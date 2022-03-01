@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour, IShootController
     [SerializeField] ParticleSystem bulletFire;
 
     GameObject cannonParent = null;
-    float bulletSpeed = 0.050f;
+    float bulletSpeed = 0.12f;
 
     [HideInInspector] public bool isFired = false;
 
@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour, IShootController
 
     void LateUpdate()
     {
-        if (isFired)
+        if (isFired && transform.parent == null)
         {
             transform.Translate(ShootDirection(transform.root.localScale.x) * bulletSpeed);
         }
@@ -28,11 +28,7 @@ public class Bullet : MonoBehaviour, IShootController
     {
         if (other.gameObject.layer == 10 || other.gameObject.layer == 12 || other.gameObject.layer == 13)
         {
-            isFired = false;
-            bulletFire.Stop();
-            transform.parent = cannonParent.transform;
-            transform.localPosition = Vector3.zero;
-            gameObject.SetActive(false);
+            ShootController.Instance.HitEffectSystem(isFired, bulletFire, gameObject, cannonParent);
         }
     }
 

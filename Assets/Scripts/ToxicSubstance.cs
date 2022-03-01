@@ -8,7 +8,7 @@ public class ToxicSubstance : MonoBehaviour, IShootController
 
     SkinnedMeshRenderer substanceskinnedMesh;
     GameObject enemyParent = null;
-    float toxicSubstanceSpeed = 0.10f;
+    float toxicSubstanceSpeed = 0.15f;
 
     [HideInInspector] public bool isShoot = false;
 
@@ -19,7 +19,7 @@ public class ToxicSubstance : MonoBehaviour, IShootController
 
     void LateUpdate()
     {
-        if (isShoot)
+        if (isShoot && transform.parent == null)
         {
             transform.Translate(ShootDirection(transform.root.localScale.x) * toxicSubstanceSpeed);
         }
@@ -29,12 +29,8 @@ public class ToxicSubstance : MonoBehaviour, IShootController
     {
         if (other.gameObject.layer == 9 || other.gameObject.layer == 10 || other.gameObject.layer == 11)
         {
-            isShoot = false;
-            toxicSmoke.Stop();
-            transform.parent = enemyParent.transform;
-            transform.localPosition = Vector3.zero;
             substanceskinnedMesh.SetBlendShapeWeight(0, 0.0f);
-            gameObject.SetActive(false);
+            ShootController.Instance.HitEffectSystem(isShoot, toxicSmoke, gameObject, enemyParent);
         }
     }
 

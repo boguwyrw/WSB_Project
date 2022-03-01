@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     float maxValue = 100.0f;
     float viewRadius = 12.0f;
 
-    int numberOfSubstances = 20;
+    int numberOfSubstances = 3;
     int actionStage = 0;
     float timeToNextShoot = 1.5f;
     float timeCounter = 0.0f;
