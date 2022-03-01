@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     int actionStage = 0;
     float timeToNextShoot = 1.5f;
     float timeCounter = 0.0f;
-    bool substanceSet = false;
+    bool currentSubstanceSet = false;
     Transform currentToxicSubstance = null;
     ToxicSubstance toxicSubstanceScript = null;
 
@@ -42,7 +42,26 @@ public class Enemy : MonoBehaviour
         Collider[] playerInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
         if (playerInViewRadius.Length > 0)
         {
+            currentSubstanceSet = false;
             EnemyShootAction();
+        }
+        else if (increaser > 0.0f)
+        {
+            increaser = increaser - increaserValue;
+            
+            if (increaser <= 0.0f)
+            {
+                increaser = 0.0f;
+            }
+
+            if (!currentSubstanceSet)
+            {
+                currentSubstanceSet = true;
+                SetCurrentToxicSubstance();
+            }
+
+            enemySkinnedMesh.SetBlendShapeWeight(0, increaser);
+            toxicSubstanceSkinnedMesh.SetBlendShapeWeight(0, increaser);
         }
     }
 
@@ -70,13 +89,18 @@ public class Enemy : MonoBehaviour
 
     void SetToxicSubstance() // case 0
     {
-        currentToxicSubstance = transform.GetChild(0);
-        toxicSubstanceSkinnedMesh = currentToxicSubstance.GetComponent<SkinnedMeshRenderer>();
+        SetCurrentToxicSubstance();
         toxicSubstanceScript = currentToxicSubstance.GetComponent<ToxicSubstance>();
         currentToxicSubstance.gameObject.SetActive(true);
         toxicSubstanceScript.AssignParent();
 
         actionStage++;
+    }
+
+    void SetCurrentToxicSubstance()
+    {
+        currentToxicSubstance = transform.GetChild(0);
+        toxicSubstanceSkinnedMesh = currentToxicSubstance.GetComponent<SkinnedMeshRenderer>();
     }
 
     void IncreaserToxicSubstance() // case 1
@@ -101,8 +125,12 @@ public class Enemy : MonoBehaviour
         toxicSubstanceScript.isShoot = true;
         toxicSubstanceScript.ActiveParticle();
 
-        //actionStage++;
+        actionStage++;
+    }
 
+    void ShootToxicSubstancePause() // case 3
+    {
+        
         if (increaser > 0.0f)
         {
             increaser = increaser - increaserValue;
@@ -110,26 +138,10 @@ public class Enemy : MonoBehaviour
         else if (increaser <= 0.0f)
         {
             increaser = 0.0f;
-            actionStage++;
         }
 
         enemySkinnedMesh.SetBlendShapeWeight(0, increaser);
-    }
-
-    void ShootToxicSubstancePause() // case 3
-    {
-        /*
-        if (increaser > 0.0f)
-        {
-            increaser = increaser - increaserValue;
-        }
-        else if (increaser < 0.0f)
-        {
-            increaser = 0.0f;
-        }
-
-        enemySkinnedMesh.SetBlendShapeWeight(0, increaser);
-        */
+        
         timeCounter -= Time.deltaTime;
         if (timeCounter <= 0.0f)
         {
