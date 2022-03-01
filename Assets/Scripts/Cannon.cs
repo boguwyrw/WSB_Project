@@ -26,10 +26,10 @@ public class Cannon : MonoBehaviour
             currentBullet = transform.GetChild(0);
             currentBulletScript = currentBullet.GetComponent<Bullet>();
             currentBullet.gameObject.SetActive(true);
-            currentBulletScript.AssignCannonParent();
+            currentBulletScript.AssignParent();
             currentBullet.parent = null;
             currentBulletScript.isFired = true;
-            currentBulletScript.ActiveBulletFire();
+            currentBulletScript.ActiveParticle();
         }
     }
 }

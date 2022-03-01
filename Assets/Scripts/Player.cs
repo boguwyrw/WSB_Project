@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
     float speed = 5.0f;
     float tilt = 1.50f;
-    float jumpForce = 380.0f;
+    float jumpForce = 280.0f;
     float direction = 0;
 
     float cannonRotationValue = 0.30f;
