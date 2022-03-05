@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
     float speed = 5.0f;
     float tilt = 1.50f;
-    float jumpForce = 250.0f;
+    float jumpForce = 360.0f;
     float direction = 0;
 
     float cannonRotationValue = 0.30f;
@@ -32,8 +32,6 @@ public class Player : MonoBehaviour
     void LateUpdate()
     {
         CannonMovement();
-
-        PlayerShoot();
     }
 
     void PlayerMovement()
@@ -97,11 +95,6 @@ public class Player : MonoBehaviour
             else if (transform.localScale.x == -1.0 && cannon.rotation.z < cannonRotationValue)
                 cannon.Rotate(Vector3.back);
         }
-    }
-
-    void PlayerShoot()
-    {
-
     }
 
     void OnCollisionEnter(Collision collision)

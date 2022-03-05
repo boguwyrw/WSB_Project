@@ -21,7 +21,7 @@ public class ToxicSubstance : MonoBehaviour, IShootController
     {
         if (isShoot && transform.parent == null)
         {
-            transform.Translate(ShootDirection(transform.root.localScale.x) * toxicSubstanceSpeed);
+            transform.Translate(ShootController.Instance.SetShootDirection(transform.root.localScale.x) * toxicSubstanceSpeed);
         }
     }
 
@@ -42,19 +42,5 @@ public class ToxicSubstance : MonoBehaviour, IShootController
     public void ActiveParticle()
     {
         toxicSmoke.Play();
-    }
-
-    public Vector3 ShootDirection(float sideValue)
-    {
-        Vector3 currentSide;
-        if (sideValue == 1.0f)
-        {
-            currentSide = Vector3.right;
-        }
-        else
-        {
-            currentSide = Vector3.left;
-        }
-        return currentSide;
     }
 }

@@ -12,14 +12,15 @@ public class Enemy : MonoBehaviour
     float increaser = 0.0f;
     float increaserValue = 2.0f;
     float maxValue = 100.0f;
-    float viewRadius = 12.0f;
+    float viewRadius = 28.0f; //12.0f
 
-    int numberOfSubstances = 3;
+    int numberOfSubstances = 5;
     int actionStage = 0;
     float timeToNextShoot = 1.5f;
     float timeCounter = 0.0f;
     bool currentSubstanceSet = false;
     Transform currentToxicSubstance = null;
+    Transform raycastPoint = null;
     ToxicSubstance toxicSubstanceScript = null;
 
     void Awake()
@@ -35,20 +36,47 @@ public class Enemy : MonoBehaviour
     {
         enemySkinnedMesh = GetComponent<SkinnedMeshRenderer>();
         timeCounter = timeToNextShoot;
+        raycastPoint = transform.GetChild(0);
     }
 
     void FixedUpdate()
     {
-        Collider[] playerInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
-        if (playerInViewRadius.Length > 0)
+        PlayerDetectionFunctionality();
+    }
+
+    void PlayerDetectionFunctionality()
+    {
+        RaycastHit raycastHit;
+        Vector3 directionVector = Vector3.zero;
+
+        if (transform.localScale.x == 1.0f)
         {
+            directionVector = raycastPoint.right;
+        }
+        else if (transform.localScale.x == -1.0f)
+        {
+            directionVector = -1 * raycastPoint.right;
+        }
+
+        if (Physics.Raycast(raycastPoint.position, directionVector, out raycastHit, viewRadius))
+        {
+            PlayerInRangeFunctionality(raycastHit);
+            
+        }
+    }
+
+    void PlayerInRangeFunctionality(RaycastHit hit)
+    {
+        if (hit.collider.gameObject.layer == 9)
+        {
+            //Debug.Log(raycastHit.collider.name);
             currentSubstanceSet = false;
             EnemyShootAction();
         }
         else if (increaser > 0.0f)
         {
             increaser = increaser - increaserValue;
-            
+
             if (increaser <= 0.0f)
             {
                 increaser = 0.0f;
@@ -99,7 +127,7 @@ public class Enemy : MonoBehaviour
 
     void SetCurrentToxicSubstance()
     {
-        currentToxicSubstance = transform.GetChild(0);
+        currentToxicSubstance = transform.GetChild(1);
         toxicSubstanceSkinnedMesh = currentToxicSubstance.GetComponent<SkinnedMeshRenderer>();
     }
 

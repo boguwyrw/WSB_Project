@@ -23,4 +23,16 @@ public class ShootController
         currentObj.transform.localPosition = Vector3.zero;
         currentObj.SetActive(false);
     }
+
+    public Vector3 SetShootDirection(float sideValue)
+    {
+        Vector3 currentSide = Vector3.right;
+
+        if (sideValue == -1.0f)
+        {
+            currentSide = Vector3.left;
+        }
+
+        return currentSide;
+    }
 }

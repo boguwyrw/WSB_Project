@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour, IShootController
     {
         if (isFired && transform.parent == null)
         {
-            transform.Translate(ShootDirection(transform.root.localScale.x) * bulletSpeed);
+            transform.Translate(ShootController.Instance.SetShootDirection(transform.root.localScale.x) * bulletSpeed);
         }
     }
 
@@ -40,19 +40,5 @@ public class Bullet : MonoBehaviour, IShootController
     public void ActiveParticle()
     {
         bulletFire.Play();
-    }
-
-    public Vector3 ShootDirection(float sideValue)
-    {
-        Vector3 currentSide;
-        if (sideValue == 1.0f)
-        {
-            currentSide = Vector3.right;
-        }
-        else
-        {
-            currentSide = Vector3.left;
-        }
-        return currentSide;
     }
 }
