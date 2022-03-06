@@ -8,7 +8,7 @@ public class ToxicSubstance : MonoBehaviour, IShootController
 
     SkinnedMeshRenderer substanceskinnedMesh;
     GameObject enemyParent = null;
-    float toxicSubstanceSpeed = 0.15f;
+    float toxicSubstanceSpeed = 0.25f;
 
     [HideInInspector] public bool isShoot = false;
 

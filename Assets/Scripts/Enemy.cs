@@ -6,17 +6,20 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] LayerMask playerMask;
     [SerializeField] GameObject toxicSubstancePrefab;
-    
+    [SerializeField] Vector2 walkingLimits;
+    [SerializeField] bool isWalkingRight;
+
     SkinnedMeshRenderer enemySkinnedMesh;
     SkinnedMeshRenderer toxicSubstanceSkinnedMesh;
     float increaser = 0.0f;
-    float increaserValue = 2.0f;
+    float increaserValue = 2.5f;
     float maxValue = 100.0f;
-    float viewRadius = 28.0f; //12.0f
+    float viewRadius = 46.0f; //12.0f
+    float directionValue = 1.0f;
 
-    int numberOfSubstances = 5;
+    int numberOfSubstances = 6;
     int actionStage = 0;
-    float timeToNextShoot = 1.5f;
+    float timeToNextShoot = 1.25f;
     float timeCounter = 0.0f;
     bool currentSubstanceSet = false;
     Transform currentToxicSubstance = null;
@@ -61,7 +64,6 @@ public class Enemy : MonoBehaviour
         if (Physics.Raycast(raycastPoint.position, directionVector, out raycastHit, viewRadius))
         {
             PlayerInRangeFunctionality(raycastHit);
-            
         }
     }
 
@@ -69,11 +71,10 @@ public class Enemy : MonoBehaviour
     {
         if (hit.collider.gameObject.layer == 9)
         {
-            //Debug.Log(raycastHit.collider.name);
             currentSubstanceSet = false;
             EnemyShootAction();
         }
-        else if (increaser > 0.0f)
+        else if (increaser > 0.0f && hit.collider.gameObject.layer != 9)
         {
             increaser = increaser - increaserValue;
 
@@ -181,5 +182,37 @@ public class Enemy : MonoBehaviour
     {
         timeCounter = timeToNextShoot;
         actionStage = 0;
+    }
+
+    void LateUpdate()
+    {
+        //if (transform.localScale.x == directionValue && transform.position.x >= walkingLimits.y)
+        if (isWalkingRight && transform.position.x >= walkingLimits.y)
+        {
+            transform.localScale = SetNewEnemyDirection(-directionValue);
+            isWalkingRight = !isWalkingRight;
+        }
+        //else if (transform.localScale.x == -directionValue)
+        else if (!isWalkingRight && transform.position.x <= walkingLimits.x)
+        {
+            transform.localScale = SetNewEnemyDirection(directionValue);
+            isWalkingRight = !isWalkingRight;
+        }
+
+        transform.Translate(EnemyCurrentDirection() * Time.deltaTime);
+    }
+
+    Vector3 EnemyCurrentDirection()
+    {
+        Vector3 enemyDirection = Vector3.right;
+        if (transform.localScale.x == -1.0f)
+            enemyDirection = Vector3.left;
+ 
+        return enemyDirection;
+    }
+
+    Vector3 SetNewEnemyDirection(float dirValue)
+    {
+        return new Vector3(dirValue, 1.0f, 1.0f);
     }
 }

@@ -11,11 +11,6 @@ public class Bullet : MonoBehaviour, IShootController
 
     [HideInInspector] public bool isFired = false;
 
-    void Start()
-    {
-        
-    }
-
     void LateUpdate()
     {
         if (isFired && transform.parent == null)

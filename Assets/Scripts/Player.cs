@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
     float speed = 5.0f;
     float tilt = 1.50f;
-    float jumpForce = 360.0f;
+    float jumpForce = 390.0f;
     float direction = 0;
 
     float cannonRotationValue = 0.30f;
@@ -102,6 +102,11 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == 10)
         {
             isJumping = false;
+        }
+
+        if (collision.gameObject.layer == 16)
+        {
+            Debug.Log("GAME OVER!!!");
         }
     }
 }

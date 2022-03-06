@@ -18,7 +18,10 @@ public class ShootController
     public void HitEffectSystem(bool isHit, ParticleSystem particleEffect, GameObject currentObj, GameObject parentObj)
     {
         isHit = false;
-        particleEffect.Stop();
+        if (particleEffect != null)
+        {
+            particleEffect.Stop();
+        }
         currentObj.transform.parent = parentObj.transform;
         currentObj.transform.localPosition = Vector3.zero;
         currentObj.SetActive(false);
