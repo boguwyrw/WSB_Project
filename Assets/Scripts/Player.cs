@@ -21,12 +21,19 @@ public class Player : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
     }
-
-    void FixedUpdate()
+    void Update()
     {
         PlayerMovement();
 
         PlayerJump();
+    }
+    void FixedUpdate()
+    {
+        float moveHorizontal = speed * direction;
+        Vector3 movement = new Vector3(moveHorizontal, rigidbody.velocity.y, 0.0f);
+
+        rigidbody.velocity = movement;
+        rigidbody.rotation = Quaternion.Euler(0.0f, 0.0f, rigidbody.velocity.x * tilt);
     }
 
     void LateUpdate()
@@ -55,12 +62,6 @@ public class Player : MonoBehaviour
         {
             direction = 0.0f;
         }
-
-        float moveHorizontal = speed * direction;
-        Vector3 movement = new Vector3(moveHorizontal, rigidbody.velocity.y, 0.0f);
-
-        rigidbody.velocity = movement;
-        rigidbody.rotation = Quaternion.Euler(0.0f, 0.0f, rigidbody.velocity.x * tilt);
     }
 
     void PlayerJump()
