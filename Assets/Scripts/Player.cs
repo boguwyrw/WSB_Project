@@ -21,12 +21,14 @@ public class Player : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
     }
+
     void Update()
     {
         PlayerMovement();
 
         PlayerJump();
     }
+
     void FixedUpdate()
     {
         float moveHorizontal = speed * direction;
