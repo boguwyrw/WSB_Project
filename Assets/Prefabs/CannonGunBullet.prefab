@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 4617265480920083762}
   - component: {fileID: 4617265480920083761}
   - component: {fileID: 4617265480920083758}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: CannonGunBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,3 +191,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6808c46a6e20f4fac432e18930e17a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLaunch: 0
+  damageValue: 25

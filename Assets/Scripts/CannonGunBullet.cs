@@ -8,6 +8,7 @@ public class CannonGunBullet : MonoBehaviour, IShootController
     float gunBulletSpeed = 0.2f;
 
     [HideInInspector] public bool isLaunch = false;
+    [HideInInspector] public int damageValue = 25;
 
     void LateUpdate()
     {
@@ -19,6 +20,13 @@ public class CannonGunBullet : MonoBehaviour, IShootController
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == 9)
+        {
+            GameController.Instance.UpdatePlayerHealth(damageValue);
+            Debug.Log("YOU HAVE BEEN HIT CANNON GUN BULLET");
+            ShootController.Instance.HitEffectSystem(isLaunch, null, gameObject, gunBulletParent);
+        }
+
         if (other.gameObject.layer == 10 || other.gameObject.layer == 12 || other.gameObject.layer == 13)
         {
             ShootController.Instance.HitEffectSystem(isLaunch, null, gameObject, gunBulletParent);

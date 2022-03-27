@@ -12,12 +12,13 @@ public class CannonGun : MonoBehaviour
     int numberOfGunBullets = 10;
     int actionStage = 0;
     float barrelAngleValue = 0.42f;
-    float barrelRotationSpeed = 0.3f;
+    float barrelRotationSpeed = 0.28f;
     float barrelCurrentRotationSpeed = 0.0f;
     float viewLength = 46.0f;
-    float timeToNextLaunch = 0.3f;
+    float timeToNextLaunch = 0.5f;
     float timeCounter = 0.0f;
     bool isRotateForward = true;
+    bool canLaunchCannonGunBullet = false;
     Transform currentGunBullet = null;
     CannonGunBullet cannonGunBulletScript = null;
 
@@ -45,9 +46,15 @@ public class CannonGun : MonoBehaviour
             Debug.DrawRay(cannonGunRaycastPoint.position, -cannonGunRaycastPoint.up * viewLength/2, Color.green);
             if (raycastHit.collider.gameObject.layer == 9)
             {
-                CannonGunShootAction();
+                canLaunchCannonGunBullet = true;
+            }
+            else
+            {
+                canLaunchCannonGunBullet = false;
             }
         }
+
+        CannonGunShootAction();
     }
     
     void LateUpdate()
@@ -87,22 +94,28 @@ public class CannonGun : MonoBehaviour
 
     void SetCannonGunBullet()
     {
-        currentGunBullet = transform.GetChild(1);
-        currentGunBullet.position = cannonGunRaycastPoint.position;
-        currentGunBullet.rotation = cannonGunRaycastPoint.rotation;
-        cannonGunBulletScript = currentGunBullet.GetComponent<CannonGunBullet>();
-        currentGunBullet.gameObject.SetActive(true);
-        cannonGunBulletScript.AssignParent();
+        if (canLaunchCannonGunBullet)
+        {
+            currentGunBullet = transform.GetChild(1);
+            currentGunBullet.position = cannonGunRaycastPoint.position;
+            currentGunBullet.rotation = cannonGunRaycastPoint.rotation;
+            cannonGunBulletScript = currentGunBullet.GetComponent<CannonGunBullet>();
+            currentGunBullet.gameObject.SetActive(true);
+            cannonGunBulletScript.AssignParent();
 
-        actionStage++;
+            actionStage++;
+        }  
     }
 
     void LaunchCannonGunBullet()
     {
-        currentGunBullet.parent = null;
-        cannonGunBulletScript.isLaunch = true;
+        if (canLaunchCannonGunBullet)
+        {
+            currentGunBullet.parent = null;
+            cannonGunBulletScript.isLaunch = true;
 
-        actionStage++;
+            actionStage++;
+        }
     }
 
     void ReloadCannonGunBullet()

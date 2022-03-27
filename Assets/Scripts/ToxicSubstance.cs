@@ -11,6 +11,7 @@ public class ToxicSubstance : MonoBehaviour, IShootController
     float toxicSubstanceSpeed = 0.25f;
 
     [HideInInspector] public bool isShoot = false;
+    [HideInInspector] public int damageValue = 20;
 
     void Start()
     {
@@ -30,6 +31,12 @@ public class ToxicSubstance : MonoBehaviour, IShootController
     {
         if (other.gameObject.layer == 9 || other.gameObject.layer == 10 || other.gameObject.layer == 11)
         {
+            if (other.gameObject.layer == 9)
+            {
+                GameController.Instance.UpdatePlayerHealth(damageValue);
+                Debug.Log("YOU HAVE BEEN HIT BY TOXIC SUBSTANCE");
+            }
+
             substanceskinnedMesh.SetBlendShapeWeight(0, 0.0f);
             ShootController.Instance.HitEffectSystem(isShoot, toxicSmoke, gameObject, enemyParent);
         }
