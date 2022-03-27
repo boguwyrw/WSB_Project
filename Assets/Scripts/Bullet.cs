@@ -15,7 +15,8 @@ public class Bullet : MonoBehaviour, IShootController
     {
         if (isFired && transform.parent == null)
         {
-            transform.Translate(ShootController.Instance.SetShootDirection(transform.root.localScale.x) * bulletSpeed);
+            Vector3 shootDirection = ShootController.Instance.SetShootDirection(transform.root.localScale.x);
+            transform.Translate(shootDirection * bulletSpeed);
         }
     }
 

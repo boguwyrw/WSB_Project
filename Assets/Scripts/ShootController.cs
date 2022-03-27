@@ -31,7 +31,8 @@ public class ShootController
     {
         Vector3 currentSide = Vector3.right;
 
-        if (sideValue == -1.0f)
+        //if (sideValue == -1.0f)
+        if (sideValue < 0.0f)
         {
             currentSide = Vector3.left;
         }

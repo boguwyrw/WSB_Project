@@ -13,7 +13,7 @@ public class OpenGateController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 9)
+        if (collision.gameObject.layer == 9 && GameController.Instance.objectsToDestroyNumber == 0)
         {
             Debug.Log("Open GATE");
             gateController.canOpenGate = true;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CannonGunBullet : MonoBehaviour, IShootController
 {
     GameObject gunBulletParent = null;
-    float gunBulletSpeed = 0.15f;
+    float gunBulletSpeed = 0.2f;
 
     [HideInInspector] public bool isLaunch = false;
 

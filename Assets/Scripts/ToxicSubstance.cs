@@ -21,7 +21,8 @@ public class ToxicSubstance : MonoBehaviour, IShootController
     {
         if (isShoot && transform.parent == null)
         {
-            transform.Translate(ShootController.Instance.SetShootDirection(transform.root.localScale.x) * toxicSubstanceSpeed);
+            Vector3 shootDirection = ShootController.Instance.SetShootDirection(transform.root.localScale.x);
+            transform.Translate(shootDirection * toxicSubstanceSpeed);
         }
     }
 

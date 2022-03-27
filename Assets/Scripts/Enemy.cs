@@ -42,9 +42,25 @@ public class Enemy : MonoBehaviour
         raycastPoint = transform.GetChild(0);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         PlayerDetectionFunctionality();
+    }
+
+    void LateUpdate()
+    {
+        if (isWalkingRight && transform.position.x >= walkingLimits.y)
+        {
+            transform.localScale = SetNewEnemyDirection(-directionValue);
+            isWalkingRight = !isWalkingRight;
+        }
+        else if (!isWalkingRight && transform.position.x <= walkingLimits.x)
+        {
+            transform.localScale = SetNewEnemyDirection(directionValue);
+            isWalkingRight = !isWalkingRight;
+        }
+
+        transform.Translate(EnemyCurrentDirection() * Time.deltaTime);
     }
 
     void PlayerDetectionFunctionality()
@@ -184,24 +200,6 @@ public class Enemy : MonoBehaviour
         actionStage = 0;
     }
 
-    void LateUpdate()
-    {
-        //if (transform.localScale.x == directionValue && transform.position.x >= walkingLimits.y)
-        if (isWalkingRight && transform.position.x >= walkingLimits.y)
-        {
-            transform.localScale = SetNewEnemyDirection(-directionValue);
-            isWalkingRight = !isWalkingRight;
-        }
-        //else if (transform.localScale.x == -directionValue)
-        else if (!isWalkingRight && transform.position.x <= walkingLimits.x)
-        {
-            transform.localScale = SetNewEnemyDirection(directionValue);
-            isWalkingRight = !isWalkingRight;
-        }
-
-        transform.Translate(EnemyCurrentDirection() * Time.deltaTime);
-    }
-
     Vector3 EnemyCurrentDirection()
     {
         Vector3 enemyDirection = Vector3.right;
@@ -214,5 +212,14 @@ public class Enemy : MonoBehaviour
     Vector3 SetNewEnemyDirection(float dirValue)
     {
         return new Vector3(dirValue, 1.0f, 1.0f);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 11)
+        {
+            gameObject.SetActive(false);
+            GameController.Instance.objectsToDestroyNumber--;
+        }
     }
 }

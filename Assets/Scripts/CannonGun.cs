@@ -12,10 +12,10 @@ public class CannonGun : MonoBehaviour
     int numberOfGunBullets = 10;
     int actionStage = 0;
     float barrelAngleValue = 0.42f;
-    float barrelRotationSpeed = 0.2f;
+    float barrelRotationSpeed = 0.3f;
     float barrelCurrentRotationSpeed = 0.0f;
     float viewLength = 46.0f;
-    float timeToNextLaunch = 0.4f;
+    float timeToNextLaunch = 0.3f;
     float timeCounter = 0.0f;
     bool isRotateForward = true;
     Transform currentGunBullet = null;
@@ -36,22 +36,36 @@ public class CannonGun : MonoBehaviour
         timeCounter = timeToNextLaunch;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         RaycastHit raycastHit;
 
-        //if (Physics.Raycast(cannonGunRaycastPoint.position, Vector3.down, out raycastHit, viewLength))
         if (Physics.Raycast(cannonGunRaycastPoint.position, -cannonGunRaycastPoint.up, out raycastHit, viewLength))
         {
             Debug.DrawRay(cannonGunRaycastPoint.position, -cannonGunRaycastPoint.up * viewLength/2, Color.green);
-            //Debug.Log(transform.GetSiblingIndex() + " - " + raycastHit.collider.name);
             if (raycastHit.collider.gameObject.layer == 9)
             {
                 CannonGunShootAction();
             }
         }
     }
+    
+    void LateUpdate()
+    {
+        if (isRotateForward && barrel.rotation.z >= barrelAngleValue)
+        {
+            barrelCurrentRotationSpeed = -barrelRotationSpeed;
+            isRotateForward = !isRotateForward;
+        }
+        else if (!isRotateForward && barrel.rotation.z <= -barrelAngleValue)
+        {
+            barrelCurrentRotationSpeed = barrelRotationSpeed;
+            isRotateForward = !isRotateForward;
+        }
 
+        barrel.Rotate(Vector3.forward * barrelCurrentRotationSpeed);
+    }
+    
     private void CannonGunShootAction()
     {
         switch(actionStage)
@@ -107,20 +121,12 @@ public class CannonGun : MonoBehaviour
         actionStage = 0;
     }
 
-    void LateUpdate()
+    void OnTriggerEnter(Collider other)
     {
-        //Debug.Log(barrel.rotation.z);
-        if (isRotateForward && barrel.rotation.z >= barrelAngleValue)
+        if (other.gameObject.layer == 11)
         {
-            barrelCurrentRotationSpeed = -barrelRotationSpeed;
-            isRotateForward = !isRotateForward;
+            gameObject.SetActive(false);
+            GameController.Instance.objectsToDestroyNumber--;
         }
-        else if (!isRotateForward && barrel.rotation.z <= -barrelAngleValue)
-        {
-            barrelCurrentRotationSpeed = barrelRotationSpeed;
-            isRotateForward = !isRotateForward;
-        }
-
-        barrel.Rotate(Vector3.forward * barrelCurrentRotationSpeed);
     }
 }

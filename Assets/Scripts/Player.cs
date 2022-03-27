@@ -112,4 +112,12 @@ public class Player : MonoBehaviour
             Debug.Log("GAME OVER!!!");
         }
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 13 || other.gameObject.layer == 17)
+        {
+            Debug.Log("YOU HAVE BEEN HIT");
+        }
+    }
 }
