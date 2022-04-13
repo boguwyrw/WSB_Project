@@ -23,7 +23,6 @@ public class CannonGunBullet : MonoBehaviour, IShootController
         if (other.gameObject.layer == 9)
         {
             GameController.Instance.UpdatePlayerHealth(damageValue);
-            Debug.Log("YOU HAVE BEEN HIT CANNON GUN BULLET");
             ShootController.Instance.HitEffectSystem(isLaunch, null, gameObject, gunBulletParent);
         }
 

@@ -34,7 +34,6 @@ public class ToxicSubstance : MonoBehaviour, IShootController
             if (other.gameObject.layer == 9)
             {
                 GameController.Instance.UpdatePlayerHealth(damageValue);
-                Debug.Log("YOU HAVE BEEN HIT BY TOXIC SUBSTANCE");
             }
 
             substanceskinnedMesh.SetBlendShapeWeight(0, 0.0f);

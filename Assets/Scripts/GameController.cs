@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    #region Singleton
+    #region GameController_Singleton
     static GameController _instance;
 
     public static GameController Instance
@@ -23,32 +23,53 @@ public class GameController : MonoBehaviour
     }
     #endregion
 
+    [SerializeField] GameObject playerGO;
     [SerializeField] Transform enemies;
     [SerializeField] Transform cannonGuns;
 
     [SerializeField] Text livesText;
     [SerializeField] Text energyLevelText;
 
-    int enemiesNumber = 0;
-    int cannonGunsNumber = 0;
+    int enemiesStage_1_Number = 0;
+    int enemiesStage_2_Number = 0;
+    int cannonGunsStage_1_Number = 0;
+    int cannonGunsStage_2_Number = 0;
     int lives = 3;
     int energyLevel = 100;
 
-    [HideInInspector] public int objectsToDestroyNumber = 0;
+    [HideInInspector] public int objectsToDestroyInStage_1_Number = 0;
+    [HideInInspector] public int objectsToDestroyInStage_2_Number = 0;
 
     void Start()
     {
-        enemiesNumber = enemies.childCount;
-        cannonGunsNumber = cannonGuns.childCount;
+        enemiesStage_1_Number = enemies.GetChild(0).childCount;
+        enemiesStage_2_Number = enemies.GetChild(1).childCount;
+        cannonGunsStage_1_Number = cannonGuns.GetChild(0).childCount;
+        cannonGunsStage_2_Number = cannonGuns.GetChild(1).childCount;
 
-        objectsToDestroyNumber = enemiesNumber + cannonGunsNumber;
+        objectsToDestroyInStage_1_Number = enemiesStage_1_Number + cannonGunsStage_1_Number;
+        objectsToDestroyInStage_2_Number = enemiesStage_2_Number + cannonGunsStage_2_Number;
 
         UpdatePlayerHealth(0);
     }
 
     void Update()
     {
-        
+        if (lives == 0)
+        {
+            playerGO.SetActive(false);
+            energyLevel = 0;
+            energyLevelText.text = "Poziom gnergii: " + energyLevel.ToString() + " %";
+            ManagerUI.Instance.ShowLoseText();
+        }
+    }
+
+    void LateUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     public void UpdatePlayerHealth(int damage)
@@ -60,6 +81,15 @@ public class GameController : MonoBehaviour
             lives--;
             energyLevel = 100;
         }
+
+        livesText.text = "Życia: " + lives.ToString();
+        energyLevelText.text = "Poziom gnergii: " + energyLevel.ToString() + " %";
+    }
+
+    public void UpdatePlayerLives()
+    {
+        lives--;
+        energyLevel = 100;
 
         livesText.text = "Życia: " + lives.ToString();
         energyLevelText.text = "Poziom gnergii: " + energyLevel.ToString() + " %";

@@ -139,7 +139,14 @@ public class CannonGun : MonoBehaviour
         if (other.gameObject.layer == 11)
         {
             gameObject.SetActive(false);
-            GameController.Instance.objectsToDestroyNumber--;
+            if (transform.parent.name.Equals("Stage_1"))
+            {
+                GameController.Instance.objectsToDestroyInStage_1_Number--;
+            }
+            else if (transform.parent.name.Equals("Stage_2"))
+            {
+                GameController.Instance.objectsToDestroyInStage_2_Number--;
+            }
         }
     }
 }

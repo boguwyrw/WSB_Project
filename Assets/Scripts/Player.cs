@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField] Transform cannon;
 
+    Vector3 playerStartPosition;
+
     float speed = 5.0f;
     float tilt = 1.50f;
     float jumpForce = 390.0f;
@@ -19,6 +21,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        playerStartPosition = transform.position;
         rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -109,7 +112,8 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.layer == 16)
         {
-            Debug.Log("GAME OVER!!!");
+            transform.position = playerStartPosition;
+            GameController.Instance.UpdatePlayerLives();
         }
     }
 }
