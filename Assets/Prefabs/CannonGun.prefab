@@ -41,8 +41,8 @@ GameObject:
   - component: {fileID: 4029496488023413851}
   - component: {fileID: 4029496488024708221}
   - component: {fileID: 4029496488025708221}
-  - component: {fileID: 4029496488023705724}
   - component: {fileID: 4029496488023705725}
+  - component: {fileID: 169042577394185107}
   m_Layer: 0
   m_Name: CannonGun
   m_TagString: Untagged
@@ -112,20 +112,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &4029496488023705724
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4029496488023705723}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: d3e5d25d8129d864789024ebab9daddd, type: 3}
 --- !u!114 &4029496488023705725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +128,19 @@ MonoBehaviour:
     type: 3}
   barrel: {fileID: 4029496488023413855}
   cannonGunRaycastPoint: {fileID: 4029496487243430332}
+--- !u!135 &169042577394185107
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4029496488023705723}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.48
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4029496488023705727
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +152,7 @@ GameObject:
   - component: {fileID: 4029496488023413855}
   - component: {fileID: 4029496488024708223}
   - component: {fileID: 4029496488025708223}
-  - component: {fileID: 4029496488023705712}
+  - component: {fileID: 4262606984595573845}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
@@ -222,8 +221,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &4029496488023705712
-MeshCollider:
+--- !u!136 &4262606984595573845
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -232,7 +231,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300002, guid: d3e5d25d8129d864789024ebab9daddd, type: 3}
+  m_Radius: 0.17000002
+  m_Height: 0.7
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.54999995, z: 0}

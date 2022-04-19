@@ -4715,9 +4715,9 @@ GameObject:
   - component: {fileID: 1108319140}
   - component: {fileID: 1111219076}
   - component: {fileID: 1110088004}
-  - component: {fileID: 1107822471}
   - component: {fileID: 1107822469}
   - component: {fileID: 1107822472}
+  - component: {fileID: 1107822471}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -4760,8 +4760,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &1107822471
-MeshCollider:
+--- !u!135 &1107822471
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4770,10 +4770,9 @@ MeshCollider:
   m_Material: {fileID: 13400000, guid: 13c0aadd06c5ec94594f1b916824a45a, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: cb4d4c0d52baa0f4db94e662864a3065, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1107822472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4787,6 +4786,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cannon: {fileID: 1108319142}
+  isInStage_2: 0
 --- !u!114 &1107822473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5999,8 +5999,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &1361808677
-MeshCollider:
+--- !u!135 &1361808677
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6009,10 +6009,9 @@ MeshCollider:
   m_Material: {fileID: 13400000, guid: 13c0aadd06c5ec94594f1b916824a45a, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 4267fe89fd57eeb4bb160ddf5fc91886, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.24999999
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!4 &1361842436
 Transform:
   m_ObjectHideFlags: 0

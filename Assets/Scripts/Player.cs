@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform cannon;
 
     Vector3 playerStartPosition;
+    Vector3 playerStage_2_StartPosition = new Vector3(37.0f, -5.5f, 0.0f);
 
     float speed = 5.0f;
     float tilt = 1.50f;
@@ -18,6 +19,8 @@ public class Player : MonoBehaviour
     bool isJumping = false;
 
     new Rigidbody rigidbody;
+
+    [HideInInspector] public bool isInStage_2 = false;
 
     void Start()
     {
@@ -112,7 +115,15 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.layer == 16)
         {
-            transform.position = playerStartPosition;
+            if (!isInStage_2)
+            {
+                transform.position = playerStartPosition;
+            }
+            else
+            {
+                transform.position = playerStage_2_StartPosition;
+            }
+            
             GameController.Instance.UpdatePlayerLives();
         }
     }
