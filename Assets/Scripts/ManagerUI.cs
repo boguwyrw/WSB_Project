@@ -25,12 +25,15 @@ public class ManagerUI : MonoBehaviour
     #endregion
 
     [SerializeField] GameObject winLosePanel;
+    [SerializeField] GameObject infoPanel;
     [SerializeField] Text winLoseText;
+
+    float timeToHidePanel = 2.2f;
 
     const string YouWin = "Wygrałeś";
     const string YouLose = "Przegrałeś";
 
-    private void ActivateDeactivatePanel(bool panelAction)
+    void ActivateDeactivatePanel(bool panelAction)
     {
         winLosePanel.SetActive(panelAction);
     }
@@ -49,9 +52,30 @@ public class ManagerUI : MonoBehaviour
         winLoseText.text = YouLose;
     }
 
+    public void ShowInfoPanel()
+    {
+        infoPanel.SetActive(true);
+    }
+
+    public void HideInfoPanel()
+    {
+        infoPanel.SetActive(false);
+    }
+
+    public IEnumerator DelayHideInfoPanel()
+    {
+        yield return new WaitForSeconds(timeToHidePanel);
+        HideInfoPanel();
+    }
+
     public void RestartGameButton()
     {
         ActivateDeactivatePanel(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ExitGameButton()
+    {
+        GameController.Instance.ExitGame();
     }
 }

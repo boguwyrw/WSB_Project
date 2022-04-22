@@ -5,6 +5,7 @@ using UnityEngine;
 public class OpenGateController : MonoBehaviour
 {
     GateController gateController;
+    IEnumerator gateCoroutine;
 
     void Start()
     {
@@ -13,9 +14,20 @@ public class OpenGateController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 9 && GameController.Instance.objectsToDestroyInStage_1_Number == 0)
+        if (collision.gameObject.layer == 9)
         {
-            gateController.canOpenGate = true;
+            if (GameController.Instance.objectsToDestroyInStage_1_Number == 0)
+            {
+                gateController.canOpenGate = true;
+            }
+            else
+            {
+                gateCoroutine = ManagerUI.Instance.DelayHideInfoPanel();
+                ManagerUI.Instance.ShowInfoPanel();
+                StartCoroutine(gateCoroutine);
+            }
         }
     }
+
+    
 }

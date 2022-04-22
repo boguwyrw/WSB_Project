@@ -24,6 +24,8 @@ public class ShootController
         }
         currentObj.transform.parent = parentObj.transform;
         currentObj.transform.localPosition = Vector3.zero;
+        currentObj.transform.localRotation = Quaternion.identity;
+        currentObj.transform.localScale = Vector3.one;
         currentObj.SetActive(false);
     }
 

@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    IEnumerator doorCoroutine;
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 9)
+        {
+            doorCoroutine = ManagerUI.Instance.DelayHideInfoPanel();
+            ManagerUI.Instance.ShowInfoPanel();
+            StartCoroutine(doorCoroutine);
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 9)

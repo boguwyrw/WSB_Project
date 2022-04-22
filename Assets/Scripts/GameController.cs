@@ -68,7 +68,7 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            ExitGame();
         }
     }
 
@@ -93,5 +93,10 @@ public class GameController : MonoBehaviour
 
         livesText.text = "Życia: " + lives.ToString();
         energyLevelText.text = "Poziom gnergii: " + energyLevel.ToString() + " %";
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
