@@ -28,7 +28,7 @@ public class ManagerUI : MonoBehaviour
     [SerializeField] GameObject infoPanel;
     [SerializeField] Text winLoseText;
 
-    float timeToHidePanel = 2.2f;
+    float timeToHidePanel = 1.6f;
 
     const string YouWin = "Wygrałeś";
     const string YouLose = "Przegrałeś";
